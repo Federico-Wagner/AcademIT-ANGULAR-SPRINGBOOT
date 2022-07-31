@@ -1,0 +1,51 @@
+
+li{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 5% 0%;
+  background-color: white;
+  height: 100px;
+  padding-left: 10px;
+  border-radius: 20px;
+}
+li .imgName{
+  display: flex;
+  align-items: center;
+
+  height: 80%;
+}
+li .imgName .datos{
+  margin-left: 10px;
+}
+/*li .imgName h5{*/
+/*  color: gray;*/
+/*}*/
+li .amount{
+  height: 100%;
+  display: flex;
+  align-items: center;
+  margin-right: 50px;
+}
+li .amount p{
+  background-color: white;
+  margin-right: 10px;
+  padding: 0px 15% 0px 15%;
+  border-radius: 30px;
+}
+li img{
+  height: 70px;
+  width: 70px;
+  border-radius: 50%;
+  margin: 0px 20px 0px 20px;
+  object-fit: cover;
+}
+.color-border-mid{
+  border: solid 1px #63bef3;
+}
+.withdraw{
+  color: rgba(241, 78, 69, 0.8);
+}
+.deposit{
+  color: rgba(125, 254, 132, 0.8);
+}

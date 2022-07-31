@@ -1,0 +1,35 @@
+<main>
+  <h3 class="title">Please register to get started</h3>
+
+  <form id="formRegister" [formGroup]="registerForm" (ngSubmit)="onSubmit()" >
+    <div class="userDataRow userRow">
+      <i class="fa-solid fa-user"></i>
+      <label for="firstName"></label>
+      <input id="firstName" type="text" formControlName="firstName" placeholder="Firstname" maxlength="30" >
+      <label for="lastName"></label>
+      <input id="lastName" type="text" formControlName="lastName" placeholder="Lastname" maxlength="30" >
+    </div>
+    <p class="firstNameError errores"></p>
+    <p class="lastNamerError errores"></p>
+    <div class="userDataRow email">
+      <label for="email"><i class="fa-solid fa-envelope"></i></label>
+      <input id="email" type="email" formControlName="email" placeholder="Email" >
+    </div>
+    <p class="emailError errores"></p>
+    <div class="userDataRow password">
+      <label for="password"><i class="fa-solid fa-key"></i></label>
+      <input id="password" type="password" formControlName="password" placeholder="Password" maxlength="20" #password>
+    </div>
+    <p class="passwordError errores"></p>
+    <div class="userDataRow passwordRepeat">
+      <label for="passwordRepeat"><i class="fa-solid fa-key"></i></label>
+      <input id="passwordRepeat" type="password" formControlName="passwordRepeat" placeholder="Password repeat" maxlength="20" #passwordRepeat>
+    </div>
+    <p class="passwordRepeatError errores"></p>
+    <p>Complete the form to enable button.</p>
+    <button type="submit" [disabled]="(password.value != passwordRepeat.value) || registerForm.invalid" >Submit</button>
+  </form>
+
+  <p>{{msg}}</p>
+  <p class="redirect">Already have an account? <a routerLink="/login">Login</a></p>
+</main>

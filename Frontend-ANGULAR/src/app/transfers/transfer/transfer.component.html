@@ -1,0 +1,14 @@
+<div *ngIf="data">
+  <li>
+    <div class="imgName">
+      <img class="avatar" src="{{data.avatar}}" alt="avatar">
+      <div class="datos">
+        <h4>{{data.name}}</h4>
+        <h5 [ngClass]="data.type=='withdraw'? 'withdraw' : 'deposit'">  {{data.op + " " + data.type}}</h5>
+      </div>
+    </div>
+    <div class="amount">
+      <p class="color-border-mid">${{data.amount}}</p>
+    </div>
+  </li>
+</div>

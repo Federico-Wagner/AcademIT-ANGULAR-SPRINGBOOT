@@ -1,0 +1,30 @@
+<header>
+  <div>
+    <div class="logo">
+      <a routerLink="/">
+        <img src="/assets/images/logo.png" alt="logo">
+        <h1>BARCLAYS</h1>
+      </a>
+    </div>
+    <div class="reg-log">
+      <a class="darkBack" routerLink="/register">OPEN AN ACCOUNT</a>
+      <a class="darkBack" routerLink="/login">LOGIN</a>
+      <div id="weatherAPI" *ngIf="weatherData">
+        <img src="{{ weatherData?.current?.condition?.icon }}" >
+        <div id="weatherAPIText">
+          <p> C Temp: {{ weatherData?.current?.temp_c }} °C</p>
+          <p> Humidity: {{ weatherData?.current?.humidity }} %</p>
+          <p class="location">{{ weatherData?.location?.name +", "+ weatherData?.location?.country }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <nav>
+    <a class="navhover" routerLink="/">HOME</a>
+    <a class="navhover" routerLink="">PERSONAL</a>
+    <a class="navhover" routerLink="">BUSISNESS</a>
+    <a class="navhover" routerLink="">TOOLS & SERVICES</a>
+    <a class="navhover" routerLink="">ABOUT US</a>
+  </nav>
+  <hr>
+</header>
