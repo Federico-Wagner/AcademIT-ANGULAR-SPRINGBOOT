@@ -1,28 +1,25 @@
 package com.barclays.webpage.barclaysweb.services;
-import com.barclays.webpage.barclaysweb.controllers.Forms;
+import com.barclays.webpage.barclaysweb.dto.Forms;
 import com.barclays.webpage.barclaysweb.domain.Users;
+import com.barclays.webpage.barclaysweb.dto.Response;
 import com.barclays.webpage.barclaysweb.repositories.IUserRepository;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
 public class UserServicesDB implements IUserServices{
-
     private final IUserRepository iUserRepository;
-
     public UserServicesDB(IUserRepository iUserRepository) {
         this.iUserRepository = iUserRepository;
     }
 
     @Override
-    public ArrayList<Users> getAllDB(){
-        return iUserRepository.getAllDB();
-    }
-
-    @Override
-    public Users getUserByEmail(String email){
-        return this.iUserRepository.getUserByEmail(email);
+    public ResponseEntity<?> getAllDB(){
+        ArrayList<Users> allDB = iUserRepository.getAllDB();
+        return new ResponseEntity<>(Response.getResponse(true, allDB,0),HttpStatus.OK );
     }
 
     @Override
@@ -31,23 +28,57 @@ public class UserServicesDB implements IUserServices{
     }
 
     @Override
-    public Users insertNewUser(Forms.RegisterForm registerForm){
-        return this.iUserRepository.save(new Users(registerForm));
+    public ResponseEntity<?> login(Forms.LoginForm loginForm) {
+        if(loginForm.getEmail() == null || loginForm.getPassword() == null){        //Email or Passwords sent check
+            return new ResponseEntity<>(Response.getResponse(false, null,100), HttpStatus.OK );
+        }else {
+            Users target = this.iUserRepository.getUserByEmail(loginForm.getEmail());
+            if(target != null && target.credentialsCheck(loginForm)){
+                return new ResponseEntity<>(Response.getResponse(true, target,0),HttpStatus.OK );
+            }else{
+                return new ResponseEntity<>(Response.getResponse(false, null, 300),HttpStatus.OK );
+            }
+        }
     }
 
     @Override
-    public Users modifyUserDB(int id, Forms.RegisterForm registerForm , Optional<Users> targetOptional){
-        Users modUser = targetOptional.get();
-        modUser.setFirstname(registerForm.getFirstName());
-        modUser.setLastname(registerForm.getLastName());
-        modUser.setEmail(registerForm.getEmail());
-        modUser.setPassword(registerForm.getPassword());
-        this.iUserRepository.save(modUser);
-        return modUser;
+    public ResponseEntity<?> register(Forms.RegisterForm registerForm) {
+        if(registerForm.check()){
+            if(this.iUserRepository.getUserByEmail(registerForm.getEmail()) == null){
+                Users newUser = this.iUserRepository.save(new Users(registerForm));
+                return new ResponseEntity<>(Response.getResponse(true, newUser,0),HttpStatus.OK );
+            }else{ //email is in use
+                return new ResponseEntity<>(Response.getResponse(false, null, 200),HttpStatus.OK );
+            }
+        }else { //register form is wrong (missing field or password mismatch)
+            return new ResponseEntity<>(Response.getResponse(false, null,100),HttpStatus.OK );
+        }
     }
 
     @Override
-    public void deleteUserDB(Users target) {
-        this.iUserRepository.delete(target);
+    public ResponseEntity<?> modifyUserDB(int id, Forms.RegisterForm registerForm) {
+        Optional<Users> targetOptional = getUserByID(id);
+        if (targetOptional.isPresent()){
+            Users modUser = targetOptional.get();
+            modUser.setFirstname(registerForm.getFirstName());
+            modUser.setLastname(registerForm.getLastName());
+            modUser.setEmail(registerForm.getEmail());
+            modUser.setPassword(registerForm.getPassword());
+            this.iUserRepository.save(modUser);
+            return new ResponseEntity<>(Response.getResponse(true, modUser,0), HttpStatus.OK );
+        }else{
+            return new ResponseEntity<>(Response.getResponse(false, null, 400),HttpStatus.BAD_REQUEST );
+        }
+    }
+
+    @Override
+    public ResponseEntity<?> deleteUserDB(int id, Forms.LoginForm loginForm) {
+        Optional<Users> target = getUserByID(id);
+        if (target.isPresent() && target.get().credentialsCheck(loginForm)){
+            this.iUserRepository.delete(target.get());
+            return new ResponseEntity<>(Response.getResponse(true, null,0), HttpStatus.OK );
+        }else{
+            return new ResponseEntity<>(Response.getResponse(false, null, 300),HttpStatus.BAD_REQUEST );
+        }
     }
 }

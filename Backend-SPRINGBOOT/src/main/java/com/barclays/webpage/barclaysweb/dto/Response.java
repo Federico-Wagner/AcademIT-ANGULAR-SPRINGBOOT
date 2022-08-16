@@ -1,4 +1,4 @@
-package com.barclays.webpage.barclaysweb.controllers;
+package com.barclays.webpage.barclaysweb.dto;
 import java.util.HashMap;
 import java.util.Map;
 

@@ -1,18 +1,22 @@
 package com.barclays.webpage.barclaysweb.services;
-import com.barclays.webpage.barclaysweb.controllers.Forms;
+import com.barclays.webpage.barclaysweb.dto.Forms;
 import com.barclays.webpage.barclaysweb.domain.Users;
+import org.springframework.http.ResponseEntity;
+
 import java.util.ArrayList;
 import java.util.Optional;
 
+
 public interface IUserServices {
-    public ArrayList<Users> getAllDB();
-    public Users getUserByEmail(String email);
+    ResponseEntity<?> getAllDB();
 
-    public Optional<Users> getUserByID(int id);
+    Optional<Users> getUserByID(int id);
 
-    public Users insertNewUser(Forms.RegisterForm registerForm);
+    ResponseEntity<?> login(Forms.LoginForm loginForm);
 
-    public Users modifyUserDB(int id, Forms.RegisterForm registerForm , Optional<Users> target);
+    ResponseEntity<?> register(Forms.RegisterForm registerForm);
 
-    public void deleteUserDB(Users target);
+    ResponseEntity<?> modifyUserDB(int id, Forms.RegisterForm registerForm);
+
+    ResponseEntity<?> deleteUserDB(int id, Forms.LoginForm loginForm);
 }

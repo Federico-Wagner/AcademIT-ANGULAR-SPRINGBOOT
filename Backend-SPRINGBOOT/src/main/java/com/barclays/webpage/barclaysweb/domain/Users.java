@@ -1,5 +1,5 @@
 package com.barclays.webpage.barclaysweb.domain;
-import com.barclays.webpage.barclaysweb.controllers.Forms;
+import com.barclays.webpage.barclaysweb.dto.Forms;
 import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Getter;
@@ -20,6 +20,7 @@ import java.util.Random;
 public class Users implements Serializable {
     @Id //PK
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(unique = true, nullable = false)
     private int id;
     @Column(name="firstname", nullable = false, length = 50)
     private String firstname;

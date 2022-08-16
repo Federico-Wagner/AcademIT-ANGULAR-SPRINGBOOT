@@ -1,6 +1,6 @@
 //package com.barclays.webpage.barclaysweb.repositories;
 //
-//import com.barclays.webpage.barclaysweb.controllers.Forms;
+//import com.barclays.webpage.barclaysweb.dto.Forms;
 //import org.springframework.beans.factory.annotation.Qualifier;
 //import org.springframework.stereotype.Repository;
 //import java.util.ArrayList;
