@@ -78,5 +78,4 @@ public class Users implements Serializable {
                 ", cta_u$$=" + cta_u$$ +
                 '}';
     }
-
 }

@@ -1,7 +1,6 @@
 package com.barclays.webpage.barclaysweb.controllers;
 import com.barclays.webpage.barclaysweb.dto.Response;
 import com.barclays.webpage.barclaysweb.services.IAdminServices;
-import com.barclays.webpage.barclaysweb.services.IUserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

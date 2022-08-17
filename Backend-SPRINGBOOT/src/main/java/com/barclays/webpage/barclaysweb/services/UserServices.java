@@ -22,6 +22,16 @@ public class UserServices implements IUserServices{
     }
 
     @Override
+    public ResponseEntity<?> userData(int id) {
+        Optional<Users> userData = getUserByID(id);
+        if(userData.isPresent()){
+            return new ResponseEntity<>(Response.getResponse(true, userData.get(),0),HttpStatus.OK );
+        }else{
+            return new ResponseEntity<>(Response.getResponse(true, null,500),HttpStatus.OK );
+        }
+    }
+
+    @Override
     public ResponseEntity<?> login(Forms.LoginForm loginForm) {
         if(loginForm.getEmail() == null || loginForm.getPassword() == null){        //Email or Passwords sent check
             return new ResponseEntity<>(Response.getResponse(false, null,100), HttpStatus.OK );
