@@ -9,7 +9,8 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Random;
-
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @JsonSerialize
 @Entity
@@ -46,7 +47,7 @@ public class Users implements Serializable {
         this.firstname = registerForm.getFirstName();
         this.lastname = registerForm.getLastName();
         this.email = registerForm.getEmail();
-        this.password = registerForm.getPassword();
+        this.password = BCrypt.hashpw(registerForm.getPassword(), BCrypt.gensalt());
         this.alias = String.valueOf(generate_cbu());
         this.cbu = String.valueOf(generate_cbu());
         this.cta_$ = 0;
@@ -61,7 +62,7 @@ public class Users implements Serializable {
     }
 
     public boolean credentialsCheck(Forms.LoginForm loginForm){
-        return (this.password.equals(loginForm.getPassword()) && this.email.equals(loginForm.getEmail()));
+        return (BCrypt.checkpw(loginForm.getPassword(),this.password) && this.email.equals(loginForm.getEmail()));
     }
 
     @Override
@@ -78,4 +79,5 @@ public class Users implements Serializable {
                 ", cta_u$$=" + cta_u$$ +
                 '}';
     }
+
 }
