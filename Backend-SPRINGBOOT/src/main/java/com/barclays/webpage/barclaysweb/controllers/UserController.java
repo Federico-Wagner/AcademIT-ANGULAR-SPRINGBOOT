@@ -20,18 +20,6 @@ public class UserController {
         this.iUserServices = iUserServices;
     }
 
-    //TEST
-    @GetMapping("/test")
-    public ResponseEntity<?> test(){
-        System.out.println("API test was executed");
-        return new ResponseEntity<>(null, HttpStatus.OK);
-    }
-
-    @GetMapping()
-    public ResponseEntity<?> userList(){
-        return iUserServices.getAllDB();
-    }
-
     @GetMapping("/{id}")
     public ResponseEntity<?> userData(@PathVariable(name="id") int id){
         Optional<Users> userData = iUserServices.getUserByID(id);
@@ -55,7 +43,7 @@ public class UserController {
     @PutMapping("/{id}/modify")
     public ResponseEntity<?> modify(@PathVariable(name="id") int id,
                                     @RequestBody Forms.RegisterForm registerForm){
-        return iUserServices.modifyUserDB(id, registerForm);
+        return iUserServices.modifyUser(id, registerForm);
     }
 
     @DeleteMapping("/{id}/delete")

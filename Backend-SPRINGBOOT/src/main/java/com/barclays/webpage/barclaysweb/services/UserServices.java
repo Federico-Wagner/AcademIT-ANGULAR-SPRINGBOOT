@@ -10,16 +10,10 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
-public class UserServicesDB implements IUserServices{
+public class UserServices implements IUserServices{
     private final IUserRepository iUserRepository;
-    public UserServicesDB(IUserRepository iUserRepository) {
+    public UserServices(IUserRepository iUserRepository) {
         this.iUserRepository = iUserRepository;
-    }
-
-    @Override
-    public ResponseEntity<?> getAllDB(){
-        ArrayList<Users> allDB = iUserRepository.getAllDB();
-        return new ResponseEntity<>(Response.getResponse(true, allDB,0),HttpStatus.OK );
     }
 
     @Override
@@ -56,7 +50,7 @@ public class UserServicesDB implements IUserServices{
     }
 
     @Override
-    public ResponseEntity<?> modifyUserDB(int id, Forms.RegisterForm registerForm) {
+    public ResponseEntity<?> modifyUser(int id, Forms.RegisterForm registerForm) {
         Optional<Users> targetOptional = getUserByID(id);
         if (targetOptional.isPresent()){
             Users modUser = targetOptional.get();

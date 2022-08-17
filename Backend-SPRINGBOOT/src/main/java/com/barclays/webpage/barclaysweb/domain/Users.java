@@ -10,7 +10,6 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Random;
 import org.springframework.security.crypto.bcrypt.BCrypt;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @JsonSerialize
 @Entity
@@ -57,7 +56,7 @@ public class Users implements Serializable {
     public int generate_cbu(){
         Random rand = new Random(); //instance of random class
         int upperbound = 25000000;
-        //generate random values from 0-24
+        //generate random values from 0- 25000000
         return rand.nextInt(upperbound);
     }
 
