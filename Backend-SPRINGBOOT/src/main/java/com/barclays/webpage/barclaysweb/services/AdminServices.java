@@ -1,5 +1,5 @@
 package com.barclays.webpage.barclaysweb.services;
-import com.barclays.webpage.barclaysweb.domain.Users;
+import com.barclays.webpage.barclaysweb.domain.User;
 import com.barclays.webpage.barclaysweb.dto.Response;
 import com.barclays.webpage.barclaysweb.repositories.IUserRepository;
 import org.springframework.http.HttpStatus;
@@ -19,7 +19,7 @@ public class AdminServices implements IAdminServices{
 
     @Override
     public ResponseEntity<?> getAllDB(){
-        ArrayList<Users> allDB = iUserRepository.getAllDB();
+        ArrayList<User> allDB = iUserRepository.getAllDB();
         return new ResponseEntity<>(Response.getResponse(true, allDB,0), HttpStatus.OK );
     }
 }

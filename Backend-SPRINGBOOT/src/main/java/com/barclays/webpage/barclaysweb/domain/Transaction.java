@@ -12,7 +12,7 @@ import java.io.Serializable;
 @Setter
 @RequiredArgsConstructor
 @Table(name = "transactions")
-public class Transactions implements Serializable {
+public class Transaction implements Serializable {
     @Id
     @Column(name = "id", nullable = false)
     private Long id;
@@ -26,13 +26,13 @@ public class Transactions implements Serializable {
     @JoinColumn(name="userID_giver")
     @JsonIncludeProperties({"firstname","lastname"})
     @JsonIgnoreProperties({"transactions_sent", "transaction_received"})
-    private Users giver;
+    private User giver;
 
     @ManyToOne
     @JoinColumn(name="userID_receptor")
     @JsonIgnoreProperties({"transactions_sent", "transaction_received"})
     @JsonIncludeProperties({"firstname","lastname"})
-    private Users receptor;
+    private User receptor;
 
     @Column(name = "amount", nullable = false)
     private float amount;

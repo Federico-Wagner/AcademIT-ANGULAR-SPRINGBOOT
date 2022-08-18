@@ -17,7 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 @Setter
 @RequiredArgsConstructor
 @Table(name = "users") //en nombre de la tabla en la base de datos
-public class Users implements Serializable {
+public class User implements Serializable {
     @Id //PK
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
@@ -36,13 +36,13 @@ public class Users implements Serializable {
 
     @JsonIncludeProperties({"receptor","amount","type","date"})
     @OneToMany(mappedBy = "giver", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Transactions> transactions_sent;
+    private List<Transaction> transactions_sent;
 
     @JsonIncludeProperties({"giver","amount","type","date"})
     @OneToMany(mappedBy = "receptor", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Transactions> transactions_received;
+    private List<Transaction> transactions_received;
 
-    public Users( Forms.RegisterForm registerForm) {
+    public User(Forms.RegisterForm registerForm) {
         this.firstname = registerForm.getFirstName();
         this.lastname = registerForm.getLastName();
         this.email = registerForm.getEmail();

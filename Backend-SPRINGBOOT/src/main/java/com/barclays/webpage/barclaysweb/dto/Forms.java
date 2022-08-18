@@ -60,5 +60,9 @@ public class Forms {
                     ", passwordRepeat='" + passwordRepeat + '\'' +
                     '}';
         }
+
+        public String getLogInfo() {
+            return String.format("%s %s %s", this.firstName, this.lastName , this.email);
+        }
     }
 }
