@@ -26,9 +26,8 @@ public class RegisterController {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody Forms.RegisterForm registerForm){
-        System.out.println("executing api/v1/register");
-        if(registerForm.check()){
-            if(!this.iUserServices.getUserByEmail(registerForm.getEmail()).isPresent()){
+        if(registerForm.check()){ //Valid body
+            if(!this.iUserServices.getUserByEmail(registerForm.getEmail()).isPresent()){ //Email is not registered
                 LOGGER.log(Level.INFO, "NEW user registered: " + registerForm.getLogInfo());
                 User newUser = this.iUserServices.save(new User(registerForm));
                 return new ResponseEntity<>(Response.getResponse(true, newUser,0), HttpStatus.OK );

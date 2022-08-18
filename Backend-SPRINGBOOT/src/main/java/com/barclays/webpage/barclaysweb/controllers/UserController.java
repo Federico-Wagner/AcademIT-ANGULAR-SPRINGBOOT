@@ -70,16 +70,15 @@ public class UserController {
         Optional<User> targetOptional = iUserServices.getUserByID(id);
         if (targetOptional.isPresent()){
             User modUser = targetOptional.get();
-            modUser.setFirstname(registerForm.getFirstName());
-            modUser.setLastname(registerForm.getLastName());
-            modUser.setEmail(registerForm.getEmail());
-            modUser.setPassword(registerForm.getPassword());
+            modUser.setFirstname(registerForm.getFirstName() == null? modUser.getFirstname() : registerForm.getFirstName());
+            modUser.setLastname(registerForm.getLastName() == null? modUser.getLastname() : registerForm.getLastName());
+            modUser.setEmail(registerForm.getEmail() == null? modUser.getEmail() : registerForm.getEmail());
+            modUser.setPassword(registerForm.getPassword() == null? modUser.getPassword() : registerForm.getPassword());
             iUserServices.save(modUser);
             return new ResponseEntity<>(Response.getResponse(true, modUser,0), HttpStatus.OK );
         }else{
             return new ResponseEntity<>(Response.getResponse(false, null, 400),HttpStatus.BAD_REQUEST );
         }
-//        return iUserServices.modifyUser(id, registerForm);
     }
 
     @DeleteMapping("/{id}/delete")
