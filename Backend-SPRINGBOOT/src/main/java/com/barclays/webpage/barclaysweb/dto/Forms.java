@@ -1,7 +1,7 @@
 package com.barclays.webpage.barclaysweb.dto;
 
 public class Forms {
-    public static class LoginForm {
+    public static class LoginFormDAO {
         String email;
         String password;
         public String getEmail() {
@@ -11,7 +11,8 @@ public class Forms {
             return password;
         }
 
-        @Override
+        public String getLogInfo() { return this.email; }
+
         public String toString() {
             return "LoginForm{" +
                     "email='" + email + '\'' +
@@ -20,14 +21,14 @@ public class Forms {
         }
     }
 
-    public static class RegisterForm {
+    public static class RegisterFormDAO {
         String email;
         String password;
         String firstName;
         String lastName;
         String passwordRepeat;
 
-        public RegisterForm(String email, String password, String firstName, String lastName) {
+        public RegisterFormDAO(String email, String password, String firstName, String lastName) {
             this.email = email;
             this.password = password;
             this.firstName = firstName;
@@ -50,7 +51,6 @@ public class Forms {
             return (email != null && password != null && firstName != null && lastName != null && password.equals(passwordRepeat));
         }
 
-        @Override
         public String toString() {
             return "RegisterForm{" +
                     "email='" + email + '\'' +

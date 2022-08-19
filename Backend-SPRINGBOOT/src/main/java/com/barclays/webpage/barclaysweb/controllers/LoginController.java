@@ -1,5 +1,4 @@
 package com.barclays.webpage.barclaysweb.controllers;
-
 import com.barclays.webpage.barclaysweb.domain.User;
 import com.barclays.webpage.barclaysweb.dto.Forms;
 import com.barclays.webpage.barclaysweb.dto.Response;
@@ -26,7 +25,7 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody Forms.LoginForm loginForm){
+    public ResponseEntity<?> login(@RequestBody Forms.LoginFormDAO loginForm){
         if(loginForm.getEmail() == null || loginForm.getPassword() == null){        //Email or Passwords sent check
             return new ResponseEntity<>(Response.getResponse(false, null,100), HttpStatus.OK );
         }else {

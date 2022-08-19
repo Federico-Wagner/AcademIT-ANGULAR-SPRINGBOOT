@@ -9,8 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
 import java.util.Optional;
 
 @RestController
@@ -67,7 +65,7 @@ public class UserController {
 
     @PutMapping("/{id}/modify")
     public ResponseEntity<?> modify(@PathVariable(name="id") int id,
-                                    @RequestBody Forms.RegisterForm registerForm){
+                                    @RequestBody Forms.RegisterFormDAO registerForm){
         Optional<User> targetOptional = iUserServices.getUserByID(id);
         if (targetOptional.isPresent()){
             User modUser = targetOptional.get();
@@ -84,7 +82,7 @@ public class UserController {
 
     @DeleteMapping("/{id}/delete")
     public ResponseEntity<?> delete(@PathVariable(name="id") int id,
-                                    @RequestBody Forms.LoginForm loginForm){
+                                    @RequestBody Forms.LoginFormDAO loginForm){
         Optional<User> target = iUserServices.getUserByID(id);
         if (target.isPresent() && SecurityPasswordMng.credentialsCheck(loginForm, target.get())){
             iUserServices.deleteUserDB(target.get());

@@ -10,7 +10,6 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
-import java.util.Random;
 
 @JsonSerialize
 @Entity
@@ -43,7 +42,7 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "receptor", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Transaction> transactions_received;
 
-    public User(Forms.RegisterForm registerForm) {
+    public User(Forms.RegisterFormDAO registerForm) {
         this.firstname = registerForm.getFirstName();
         this.lastname = registerForm.getLastName();
         this.email = registerForm.getEmail();

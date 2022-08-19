@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class SecurityPasswordMng {
 
-    public static boolean credentialsCheck(Forms.LoginForm loginForm, User user){
+    public static boolean credentialsCheck(Forms.LoginFormDAO loginForm, User user){
         return (BCrypt.checkpw(loginForm.getPassword(),user.getPassword()) && user.getEmail().equals(loginForm.getEmail()));
     }
 

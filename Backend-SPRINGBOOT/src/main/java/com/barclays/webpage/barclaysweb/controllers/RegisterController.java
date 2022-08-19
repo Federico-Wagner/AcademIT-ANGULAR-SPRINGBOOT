@@ -25,7 +25,7 @@ public class RegisterController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody Forms.RegisterForm registerForm){
+    public ResponseEntity<?> register(@RequestBody Forms.RegisterFormDAO registerForm){
         if(registerForm.check()){ //Valid body
             if(!this.iUserServices.getUserByEmail(registerForm.getEmail()).isPresent()){ //Email is not registered
                 LOGGER.log(Level.INFO, "NEW user registered: " + registerForm.getLogInfo());
