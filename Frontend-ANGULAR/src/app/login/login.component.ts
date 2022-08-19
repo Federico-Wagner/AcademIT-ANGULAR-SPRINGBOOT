@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void { }
 
   onSubmit(loginForm: NgForm) {
-    this.http.post<Object>('http://localhost:9080/user/login' , loginForm.value )
+    this.http.post<Object>('http://localhost:9080/API/V1/login' , loginForm.value )
       .subscribe( res =>{
         let respons = res as response
         if (respons.meta.status) {

@@ -35,8 +35,9 @@ export class RegisterComponent implements OnInit {
   constructor(private fb: FormBuilder, private router:Router, private http: HttpClient) { }
   ngOnInit(): void {
   }
+
   onSubmit() {
-    this.http.post('http://localhost:9080/user/register', this.registerForm.value)//'{"email": "f@gmail.com","password": "1234"}'
+    this.http.post('http://localhost:9080/API/V1/register', this.registerForm.value)//'{"email": "f@gmail.com","password": "1234"}'
       .subscribe(res => {
         let response = res as response
         if (response.meta.status) {

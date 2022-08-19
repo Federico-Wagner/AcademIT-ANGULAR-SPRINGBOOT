@@ -1,5 +1,7 @@
 package com.barclays.webpage.barclaysweb.domain;
 import com.barclays.webpage.barclaysweb.dto.Forms;
+import com.barclays.webpage.barclaysweb.helper.UserHelper;
+import com.barclays.webpage.barclaysweb.security.SecurityPasswordMng;
 import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Getter;
@@ -9,7 +11,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Random;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 
 @JsonSerialize
 @Entity
@@ -46,22 +47,11 @@ public class User implements Serializable {
         this.firstname = registerForm.getFirstName();
         this.lastname = registerForm.getLastName();
         this.email = registerForm.getEmail();
-        this.password = BCrypt.hashpw(registerForm.getPassword(), BCrypt.gensalt());
-        this.alias = String.valueOf(generate_cbu());
-        this.cbu = String.valueOf(generate_cbu());
+        this.password = SecurityPasswordMng.passwordEncrypt(registerForm.getPassword());
+        this.alias = UserHelper.generate_alias();
+        this.cbu = UserHelper.generate_cbu();
         this.cta_$ = 0;
         this.cta_u$$ = 0;
-    }
-
-    public int generate_cbu(){
-        Random rand = new Random(); //instance of random class
-        int upperbound = 25000000;
-        //generate random values from 0- 25000000
-        return rand.nextInt(upperbound);
-    }
-
-    public boolean credentialsCheck(Forms.LoginForm loginForm){
-        return (BCrypt.checkpw(loginForm.getPassword(),this.password) && this.email.equals(loginForm.getEmail()));
     }
 
     @Override

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {ActivatedRoute} from "@angular/router";
-import { response } from "../Iresponse"
 
 @Component({
   selector: 'app-profile',
@@ -18,71 +17,55 @@ export class ProfileComponent implements OnInit {
     this.route.params.subscribe(s => {
       this.http.get<Object>(`http://localhost:9080/user/${s["id"]}`)
         .subscribe( res =>{
-
-          console.log(res)
-          let response = res as response2
-          // let que = response.data.transactions_received
-          // let transactions = response.data.transactions_sent.concat(que)
-
+          let response = res as responseStructure
           this.userData = response.data
-          console.log(this.userData)
+          //console.log(this.userData)
         })
     });
   }
 }
 
-interface response2 {
+interface responseStructure {
   "data": {
     "id": 1,
-    "firstname": "Federico",
-    "lastname": "Wagner",
-    "email": "fedeWag@gmail.com",
-    "password": "123456",
-    "alias": "fede.mara.perro",
-    "cbu": "123456789",
-    "cta_$": 11532.48,
-    "cta_u$$": 525.46,
+    "firstname": "",
+    "lastname": "",
+    "email": "",
+    "password": "",
+    "alias": "",
+    "cbu": "",
+    "cta_$": 0,
+    "cta_u$$": 0,
     "transactions_sent": [
       {
         "type": {
-          "currency": "Pesos"
+          "currency": ""
         },
         "receptor": {
-          "firstname": "Natalia",
-          "lastname": "Garcia"
+          "firstname": "",
+          "lastname": ""
         },
-        "amount": 500.0,
-        "date": "2022-07-14 11:19:37"
-      },
-      {
-        "type": {
-          "currency": "Pesos"
-        },
-        "receptor": {
-          "firstname": "Agustin",
-          "lastname": "Martinez"
-        },
-        "amount": 300.0,
-        "date": "2022-07-12 11:19:37"
+        "amount": 0,
+        "date": ""
       }
     ],
     "transactions_received": [
       {
         "type": {
-          "currency": "Pesos"
+          "currency": ""
         },
         "giver": {
-          "firstname": "Natalia",
-          "lastname": "Garcia"
+          "firstname": "",
+          "lastname": ""
         },
-        "amount": 250.0,
-        "date": "2022-07-13 11:22:01"
+        "amount": 0,
+        "date": ""
       }
     ]
   },
   "meta": {
-    "copyright": "Copyright 2015 Example Corp.",
-    "authors": "[Federico Wagner]",
+    "copyright": "",
+    "authors": "",
     "status": true
   }
 }
